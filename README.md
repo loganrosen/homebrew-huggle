@@ -1,16 +1,27 @@
-# Loganrosen Huggle
+# Huggle Homebrew Tap
 
-## How do I install these formulae?
+This tap provides a Homebrew cask for [Huggle](https://github.com/huggle/huggle3-qt-lx), an anti-vandalism tool for MediaWiki-based projects.
 
-`brew install loganrosen/huggle/<formula>`
+## Installation
 
-Or `brew tap loganrosen/huggle` and then `brew install <formula>`.
+Install Huggle directly:
 
-Or, in a `brew bundle` `Brewfile`:
+```sh
+brew install --cask loganrosen/huggle/huggle
+```
+
+Or tap this repository first:
+
+```sh
+brew tap loganrosen/huggle
+brew install --cask huggle
+```
+
+For `brew bundle`, add this to your `Brewfile`:
 
 ```ruby
 tap "loganrosen/huggle"
-brew "<formula>"
+cask "huggle"
 ```
 
 ## Documentation

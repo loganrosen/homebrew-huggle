@@ -1,4 +1,4 @@
-name: brew test-bot
+name: CI
 
 on:
   push:
@@ -39,13 +39,21 @@ jobs:
 
       - run: brew test-bot --only-setup
 
-      - run: brew test-bot --only-tap-syntax
-      - run: brew test-bot --only-formulae
-        if: github.event_name == 'pull_request'
+      - name: Run tap syntax checks
+        run: brew test-bot --only-tap-syntax
 
-      - name: Upload bottles as artifact
-        if: always() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v7
-        with:
-          name: bottles_${{ matrix.os }}
-          path: '*.bottle.*'
+      - name: Fetch Huggle cask
+        if: startsWith(matrix.os, 'macos-')
+        run: brew fetch --cask --retry --force huggle
+
+      - name: Audit Huggle cask
+        if: startsWith(matrix.os, 'macos-')
+        run: brew audit --cask --strict --online huggle
+
+      - name: Install Huggle cask
+        if: startsWith(matrix.os, 'macos-')
+        run: brew install --cask --appdir="$RUNNER_TEMP/Applications" huggle
+
+      - name: Uninstall Huggle cask
+        if: startsWith(matrix.os, 'macos-')
+        run: brew uninstall --cask --zap huggle
