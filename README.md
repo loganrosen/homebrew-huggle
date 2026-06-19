@@ -24,6 +24,21 @@ tap "loganrosen/huggle"
 cask "huggle"
 ```
 
+## Maintenance
+
+To update the cask when Huggle publishes a new release:
+
+```sh
+brew bump-cask-pr --no-fork huggle
+```
+
+Before merging an update, run:
+
+```sh
+brew audit --cask --strict --online huggle
+brew livecheck --cask huggle
+```
+
 ## Documentation
 
 `brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
